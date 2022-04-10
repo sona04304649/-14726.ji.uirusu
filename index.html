@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="loading">
+        <div id="loading_barWrap">
+            <p class="text">ウイルス解析中...</p>
+            <div id="loading_bar"></div>
+        </div>
+    </div>
+
+    <h1>！警告！ウイルスにかかりました！</h1><br><h1>見つかったウイルス: ワーム型ウイルス</h1><br><h1>発症した理由：　ウイルスの入ったYSBの使用等</h1>
+</body>
+<script>
+confirm("！警告！👿あなたの端末がウイルスにかかりました！👿回復プログラムを実行してもよろしいでしょうか？");
+
+var images = document.getElementsByTagName('img');
+var loadingBar = document.getElementById('loading_bar');
+var loadingWrap = document.getElementById('loading_barWrap');
+var loadingArea = document.getElementById('loading');
+ 
+var imgLen = images.length;
+var barLen = 100 / imgLen;
+console.log(barLen);
+var barWidth = 0;
+ 
+for (var i = 0; i < imgLen; i++) {
+    images[i].onload = function() {
+        barWidth = barWidth + barLen;
+        loadingBar.style.width = barWidth + '%';
+    }
+}
+ 
+function loadLen() {
+    if (!loadingArea.classList.contains('loadingNone')) {
+        if (loadingBar.clientWidth === loadingWrap.clientWidth) {
+            loadingArea.classList.add('loadingNone');
+        } else {
+            setTimeout(loadLen, 1000);
+        }
+    }
+}
+ 
+// 100%にならなかった時用の処理
+window.addEventListener('load', function(){
+  if (!loadingArea.classList.contains('loadingNone')) {
+    loadingBar.style.width = '100%';
+    setTimeout(function(){
+      loadingArea.classList.add('loadingNone');
+    }, 1000);
+  }
+});
+</script>
+<style>
+h1{
+    color: red;
+}
+#loading {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+ 
+#loading_barWrap {
+    width: 30vw;
+    height: calc(1rem + 5px);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+ 
+#loading_bar {
+    width: 0;
+    height: 5px;
+    background: #fff;
+    transition-duration: 1s;
+}
+ 
+.text {
+    text-align: center;
+    color: #fff;
+}
+ 
+.loadingNone {
+    animation: loadingAnime 1s forwards;
+}
+ 
+@keyframes loadingAnime {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+</style>
+</html>
